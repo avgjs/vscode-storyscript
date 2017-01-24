@@ -1,0 +1,118 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: Storyscript
+scopeName: source.storyscript
+fileTypes: [bks,ss]
+uuid: 8544eaea-0884-436b-8ecc-4a683eef1d2c
+
+patterns:
+- comment: COMMENT_LINE
+  match: "\\/\\/.*"
+  name: comment.line.double-slash.bks
+- comment: COMMENT_BLOCK
+  begin: (/\\*)
+  end: (\\*/)
+  name: comment.block.bks
+
+- comment: TAG_COMMAND
+  begin: "([\\[@])(\\b((?![0-9])[a-zA-Z0-9_]+))\\b"
+  beginCaptures:
+    '1':
+      name: punctuation.definition.tag.begin.bks
+    '2':
+      name: entity.name.tag.bks
+  end: "(\\])|(?=\\[)"
+  endCaptures:
+    '1':
+      name: punctuation.definition.tag.end.bks
+  patterns:
+  - match: "(\\b((?![0-9])[a-zA-Z0-9_]+))((?=[= ])|\\b)"
+    captures:
+      '2':
+        name: entity.other.attribute-name.bks
+  - comment: NUMBER
+    match: "(\\b=)([0-9]+)"
+    captures:
+      '2':
+        name: constant.numeric.bks
+  - comment: BOOLEAN
+    match: "(\\b=)((true)|(false))"
+    captures:
+      '2':
+        name: constant.language.bks
+  - comment: STRING_QUOTED_DOUBLE
+    begin: "(\\b=)(\")"
+    beginCaptures:
+      '2':
+        name: string.quoted.double.bks
+    end: (")
+    endCaptures:
+      '1':
+        name: string.quoted.double.bks
+    patterns:
+    - match: (.)
+      name: string.quoted.double.bks
+  - comment: STRING_QUOTED_SINGLE
+    begin: "(\\b=)(')"
+    beginCaptures:
+      '2':
+        name: string.quoted.single.bks
+    end: (')
+    endCaptures:
+      '1':
+        name: string.quoted.single.bks
+    patterns:
+    - match: (.)
+      name: string.quoted.single.bks
+- comment: TEXT
+  match: ".+?(?=[\\[|@])"
+  name: markup.raw.bks
+
+- comment: LOGICAL
+  begin: "(#)(\\s*)((let|while|if|elseif|else|foreach|end)\\b)*"
+  beginCaptures:
+    '3':
+      name: keyword.control.bks
+  end: ($)
+  patterns:
+  - comment: NUMBER
+    match: "\\b([0-9]+)\\b"
+    name: constant.numeric.bks
+  - comment: BOOLEAN
+    match: "((true)|(false))"
+    name: constant.language.bks
+  - comment: STRING_QUOTED_DOUBLE
+    begin: "\\B(\")"
+    beginCaptures:
+      '1':
+        name: string.quoted.double.bks
+    end: "(\")\\B"
+    endCaptures:
+      '1':
+        name: string.quoted.double.bks
+    patterns:
+    - match: (.)
+      name: string.quoted.double.bks
+  - comment: STRING_QUOTED_SINGLE
+    begin: "\\B(')"
+    beginCaptures:
+      '1':
+        name: string.quoted.single.bks
+    end: "(')\\B"
+    endCaptures:
+      '1':
+        name: string.quoted.single.bks
+    patterns:
+    - match: (.)
+      name: string.quoted.single.bks
+  - comment: VARIABLE_SP
+    match: ((\$|#)(?![0-9])[a-zA-Z0-9_]+)((?=[= <>+-\\*/^%])|\\b|$)
+    name: variable.parameter.bks
+  - comment: VARIABLE
+    match: (((?![0-9])[a-zA-Z0-9_]+))((?=[= <>+-\\*/^%])|\\b|$)
+    name: variable.parameter.bks
+  - comment: OPERATOR
+    match: "(\\+|\\-|\\*|\\/|=|==|>|<|>=|<=)"
+    name: keyword.operator.bks
+
+...

@@ -1,0 +1,40 @@
+{
+    "name": "vscode-storyscript",
+    "displayName": "Storyscript",
+    "description": "Storyscript support for VSCode",
+    "version": "0.1.2",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/avgjs/vscode-storyscript"
+    },
+    "publisher": "icemic",
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "storyscript",
+                "aliases": [
+                    "Storyscript",
+                    "storyscript"
+                ],
+                "extensions": [
+                    ".bks",
+                    ".ss"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "storyscript",
+                "scopeName": "source.storyscript",
+                "path": "./syntaxes/storyscript.tmLanguage"
+            }
+        ]
+    }
+}
